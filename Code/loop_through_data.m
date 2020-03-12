@@ -8,9 +8,11 @@ ll = 0;
 for monkey_num = 1:numel(monkey_names)
     monkey_name = monkey_names{monkey_num};
     if strcmpi(monkey_name,'Hobbit')
-        monkey_dir = '/home/bochengxiao/Monkey_Data/SMA_Monkey/MonkeyH';
+%         monkey_dir = '/home/bochengxiao/Monkey_Data/SMA_Monkey/MonkeyH';
+        monkey_dir = '/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/MonkeyH';
     elseif strcmpi(monkey_name,'Isildur')
-        monkey_dir = '/home/bochengxiao/Monkey_Data/SMA_Monkey/MonkeyI';
+%         monkey_dir = '/home/bochengxiao/Monkey_Data/SMA_Monkey/MonkeyI';
+        monkey_dir = '/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/MonkeyI';
     else
         disp('No data for this monkey');
     end
@@ -51,30 +53,93 @@ for monkey_num = 1:numel(monkey_names)
                 continue
             end
             
-            threshold = TSEventBHV.OutcomeCueON(counter,1);
-            max = 0;
-            max_index = -1;
-            for cnt_col = 1:cl
-                if MoveEnd(counter,cnt_col) > max && MoveEnd(counter,cnt_col) < threshold
-                   max =  MoveEnd(counter,cnt_col);
-                   max_index = cnt_col;
+            if TOD_M.TOD(counter,5)==11||TOD_M.TOD(counter,5)==12||TOD_M.TOD(counter,5)==15||TOD_M.TOD(counter,5)==16
+                if TOD_M.Choice(counter)==1
+                    Dec_dir = 90;
+                elseif TOD_M.Choice(counter)==2
+                    Dec_dir = 330;
+                else
+                    Dec_dir = nan;
                 end
-            end
-            if max_index ~= -1
-                Decision(counter,max_index) = max;
-                Decision_Index(counter,max_index) = 1;
-            end
-            for cnt_col = 1:cl
-                if MoveEnd(counter,cnt_col) < max
-                    PreDecision(counter,cnt_col) = MoveEnd(counter,cnt_col);
-                    PreDecision_Index(counter,cnt_col) = 1;
-                elseif MoveEnd(counter,cnt_col) > max
-                    PostDecision(counter,cnt_col) = MoveEnd(counter,cnt_col);
-                    PostDecision_Index(counter,cnt_col) = 1;
+            elseif TOD_M.TOD(counter,5)==19||TOD_M.TOD(counter,5)==20||TOD_M.TOD(counter,5)==23||TOD_M.TOD(counter,5)==24
+                if TOD_M.Choice(counter)==1
+                    Dec_dir = 330;
+                elseif TOD_M.Choice(counter)==2
+                    Dec_dir = 90;
+                else
+                    Dec_dir = nan;
+                end
+            elseif TOD_M.TOD(counter,5)==17||TOD_M.TOD(counter,5)==18||TOD_M.TOD(counter,5)==21||TOD_M.TOD(counter,5)==22
+                if TOD_M.Choice(counter)==1
+                    Dec_dir = 330;
+                elseif TOD_M.Choice(counter)==2
+                    Dec_dir = 210;
+                else
+                    Dec_dir = nan;
+                end
+            elseif TOD_M.TOD(counter,5)==3||TOD_M.TOD(counter,5)==4||TOD_M.TOD(counter,5)==7||TOD_M.TOD(counter,5)==8
+                if TOD_M.Choice(counter)==1
+                    Dec_dir = 210;
+                elseif TOD_M.Choice(counter)==2
+                    Dec_dir = 330;
+                else
+                    Dec_dir = nan;
+                end
+            elseif TOD_M.TOD(counter,5)==1||TOD_M.TOD(counter,5)==2||TOD_M.TOD(counter,5)==5||TOD_M.TOD(counter,5)==6
+                if TOD_M.Choice(counter)==1
+                    Dec_dir = 210;
+                elseif TOD_M.Choice(counter)==2
+                    Dec_dir = 90;
+                else
+                    Dec_dir = nan;
+                end
+            elseif TOD_M.TOD(counter,5)==9||TOD_M.TOD(counter,5)==10||TOD_M.TOD(counter,5)==13||TOD_M.TOD(counter,5)==14
+                if TOD_M.Choice(counter)==1
+                    Dec_dir = 90;
+                elseif TOD_M.Choice(counter)==2
+                    Dec_dir = 210;
+                else
+                    Dec_dir = nan;
                 end
             end
             
+            threshold = TSEventBHV.OutcomeCueON(counter,1);
+            max = 0;
+            max_index = -1;
+            for counter_col = 1:cl
+                if MoveEnd(counter,counter_col) > max && MoveEnd(counter,counter_col) < (threshold + 75)
+                   max =  MoveEnd(counter,counter_col);
+                   max_index = counter_col;
+                end
+            end
+            if max_index ~= -1 
+                if abs(MoveDir(counter, max_index) - Dec_dir) > 15
+                    if max_index <= 1
+                        continue
+                    else
+                    max = MoveEnd(counter,max_index - 1);
+                    Decision(counter,max_index - 1) = max;
+                    Decision_Index(counter,max_index - 1) = 1;
+                    end
+                else
+                    Decision(counter,max_index) = max;
+                    Decision_Index(counter,max_index) = 1;
+                end
+            end
+            for counter_col = 1:cl
+%                 if abs(MoveDir(counter, counter_col) - 90) < 15 && abs(MoveDir(counter, counter_col) - 210) < 15 && abs(MoveDir(counter, counter_col) - 330) < 15
+                    if MoveEnd(counter,counter_col) < max
+                        PreDecision(counter,counter_col) = MoveEnd(counter,counter_col);
+                        PreDecision_Index(counter,counter_col) = 1;
+                    elseif MoveEnd(counter,counter_col) > max
+                        PostDecision(counter,counter_col) = MoveEnd(counter,counter_col);
+                        PostDecision_Index(counter,counter_col) = 1;
+                    end
+%                 end
+            end
+            
         end
-        save(['/home/bochengxiao/Monkey_Data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');
+%         save(['/home/bochengxiao/Monkey_Data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');
+        save(['/Users/xiaobocheng/Desktop/monkey_data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');
     end
 end
