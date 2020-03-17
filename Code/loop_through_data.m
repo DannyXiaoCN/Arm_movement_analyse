@@ -5,6 +5,7 @@
 
 monkey_names = {'Hobbit','Isildur'};
 ll = 0;
+figure;
 for monkey_num = 1:numel(monkey_names)
     monkey_name = monkey_names{monkey_num};
     if strcmpi(monkey_name,'Hobbit')
@@ -38,6 +39,8 @@ for monkey_num = 1:numel(monkey_names)
         date = dates{date_num};
         
         load(sprintf('%s/Multi-attribute-%s-%s.mat',monkey_dir,monkey_name,date));
+        load(sprintf('%s/%s_%s_corrected_movements.mat',monkey_dir,monkey_name,date));
+        
         
         %%%%%%% INSERT ANALYSIS CODE HERE %%%%%
         data = MoveEnd;
@@ -127,19 +130,23 @@ for monkey_num = 1:numel(monkey_names)
                 end
             end
             for counter_col = 1:cl
-%                 if abs(MoveDir(counter, counter_col) - 90) < 15 && abs(MoveDir(counter, counter_col) - 210) < 15 && abs(MoveDir(counter, counter_col) - 330) < 15
+                if abs(MoveDir(counter, counter_col) - 90) < 15 || abs(MoveDir(counter, counter_col) - 210) < 15 || abs(MoveDir(counter, counter_col) - 330) < 15
                     if MoveEnd(counter,counter_col) < max
                         PreDecision(counter,counter_col) = MoveEnd(counter,counter_col);
                         PreDecision_Index(counter,counter_col) = 1;
+                        if MoveAmp(counter,counter_col) > 3
+                            ploting_the_world(FixbySacDet,counter,MoveBegin(counter),MoveAmp(counter),MoveDir(counter),monkey_name,date,TSEventBHV.OutcomeCueON(counter),TOD_M,Dec_dir)
+                        end
                     elseif MoveEnd(counter,counter_col) > max
                         PostDecision(counter,counter_col) = MoveEnd(counter,counter_col);
                         PostDecision_Index(counter,counter_col) = 1;
                     end
-%                 end
+                end
             end
             
         end
-%         save(['/home/bochengxiao/Monkey_Data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');
+        %         save(['/home/bochengxiao/Monkey_Data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');
         save(['/Users/xiaobocheng/Desktop/monkey_data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');
+        
     end
 end
