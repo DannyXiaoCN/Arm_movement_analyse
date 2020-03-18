@@ -89,25 +89,25 @@ for cnt = 1:cols
     end
     
 end
-hold on
-if Dec_dir == 90
-    plot(Outcome,1,'h','color','r');
+
+if Dec_dir 
+    plot(Outcome,1,'-s');
     bar(Outcome,1);
-elseif Dec_dir == 210
-    plot(Outcome,0,'h','color','r');
+elseif Dec_dir > 200 && Dec_dir < 220
+    plot(Outcome,0,'-s');
     bar(Outcome,0);
-elseif Dec_dir == 330
-    plot(Outcome,-1,'h','color','r');
+elseif Dec_dir > 320 && Dec_dir < 340
+    plot(Outcome,-1,'-s');
     bar(Outcome,-1);
 end
-hold on
+
 xlim([0,max(max(MoveBegin))+5000]);
 ylim([-2,2]);
 xlabel('time (ms');
     title([monkey_name '-' date '-' 'trial #' num2str(trial_num)]);
 set(gca,'YTick',[-1 0 1],'YTickLabel',{'right','left','top'});
 for cnt2 = 1:a
-    hold on
+    
     A = get(main_axes,'Position');
     XL = max(max(MoveBegin))+5000;
     xpos = (MoveBegin(1,temp(1,cnt2)))/XL*A(1,3) + A(1,1);
