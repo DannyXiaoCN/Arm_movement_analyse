@@ -141,7 +141,6 @@ for monkey_num = 1:numel(monkey_names)
                         PreDecision_Index(counter,counter_col) = 1;
                         if MoveAmp(counter,counter_col) > 3
                             ploting_the_world(FixbySacDet,counter,MoveBegin(counter,:),MoveAmp(counter,:),MoveDir(counter,:),monkey_name,date,TSEventBHV.OutcomeCueON(counter),TOD_M,Dec_dir)
-                            break
                         end
                     elseif MoveBegin(counter,counter_col) > max
                         PostDecision(counter,counter_col) = MoveBegin(counter,counter_col);
@@ -149,7 +148,6 @@ for monkey_num = 1:numel(monkey_names)
                     end
                 end
             end
-            
         end
         %         save(['/home/bochengxiao/Monkey_Data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');
         save(['/Users/xiaobocheng/Desktop/monkey_data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');

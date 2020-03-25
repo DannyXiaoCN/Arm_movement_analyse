@@ -31,10 +31,7 @@ if  mm == 0
                 cur_att = FixbySacDet.whichAttribute(trial_num,target_fix(1,cnt_f));
                 %                 if abs(cur_mov_dir(1,target(1,cnt))- 90) < 10 || abs(cur_mov_dir(1,target(1,cnt))- 210) < 10 || abs(cur_mov_dir(1,target(1,cnt))- 330) < 10
                 %                     if BHV.AnalogData{trial_num}.Joystick(1,1) < 1 && BHV.AnalogData{trial_num}.Joystick(1,2) < 1
-                if cur_mov_amp(1,target(1,cnt)) > 1.25
-                    svd_vec = [monkey_name,date,num2str(trial_num),num2str(target(1,cnt))];
-                    save(['/home/bochengxiao/Monkey_Data/interesting_predec/' monkey_name '-' date '-' num2str(trial_num) ],'svd_vec');
-                end
+               
                 
                 amp_mat_m = [amp_mat_m cur_mov_amp(1,target(1,cnt))];
                 if cur_pre_dec(1,target(1,cnt)) > cur_start && cur_pre_dec(1,target(1,cnt)) < cur_end
