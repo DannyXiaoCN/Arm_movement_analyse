@@ -13,7 +13,7 @@ if  mm == 0
         cur_pre_dec = PreDecision(trial_num,:);
         target = find(cur_pre_dec~=0);
         [a,b] = size(target);
-        target_fix = find(~isnan(FixbySacDet.whichAttribute(trial_num,:)));
+        target_fix = find(~isnan(FixOnFirst.CodeTime(trial_num,:)));
         [~,cols] = size(target_fix);
         min_time = 9999;
         for cnt_f = 1:cols

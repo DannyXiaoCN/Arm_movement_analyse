@@ -127,8 +127,14 @@ for monkey_num = 1:numel(monkey_names)
                     end
                 end
                 if Cannot_identify == 0
-                    Decision(counter,max_index + 1) = max;
-                    Decision_Index(counter,max_index + 1) = 1;
+                    if max_index + 1 <= cl
+                        
+                        Decision(counter,max_index + 1) = max;
+                        Decision_Index(counter,max_index + 1) = 1;
+                    else
+                        Decision(counter,max_index) = max;
+                        Decision_Index(counter,max_index) = 1;
+                    end
                 else
                     max = 0;
                     max_index = -1;
@@ -139,9 +145,9 @@ for monkey_num = 1:numel(monkey_names)
                     if MoveBegin(counter,counter_col) < max
                         PreDecision(counter,counter_col) = MoveBegin(counter,counter_col);
                         PreDecision_Index(counter,counter_col) = 1;
-                        if MoveAmp(counter,counter_col) > 3
-                            ploting_the_world(FixbySacDet,counter,MoveBegin(counter,:),MoveAmp(counter,:),MoveDir(counter,:),monkey_name,date,TSEventBHV.OutcomeCueON(counter),TOD_M,Dec_dir)
-                        end
+%                         if MoveAmp(counter,counter_col) > 3
+%                             ploting_the_world(FixbySacDet,counter,MoveBegin(counter,:),MoveAmp(counter,:),MoveDir(counter,:),monkey_name,date,TSEventBHV.OutcomeCueON(counter),TOD_M,Dec_dir)
+%                         end
                     elseif MoveBegin(counter,counter_col) > max
                         PostDecision(counter,counter_col) = MoveBegin(counter,counter_col);
                         PostDecision_Index(counter,counter_col) = 1;

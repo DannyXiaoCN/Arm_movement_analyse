@@ -3,9 +3,9 @@ ll = 0;
 for monkey_num = 1:numel(monkey_names)
     monkey_name = monkey_names{monkey_num};
     if strcmpi(monkey_name,'Hobbit')
-        monkey_dir = '/home/bochengxiao/Monkey_Data/SMA_Monkey/MonkeyH';
+        monkey_dir = '/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/MonkeyH';
     elseif strcmpi(monkey_name,'Isildur')
-        monkey_dir = '/home/bochengxiao/Monkey_Data/SMA_Monkey/MonkeyI';
+        monkey_dir = '/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/MonkeyI';
     else
         disp('No data for this monkey');
     end
@@ -31,7 +31,8 @@ for monkey_num = 1:numel(monkey_names)
         date = dates{date_num};
         
         load(sprintf('%s/Multi-attribute-%s-%s.mat',monkey_dir,monkey_name,date));
-        load(sprintf('/home/bochengxiao/Monkey_Data/Arm_Movements/%s-%sarm_movements.mat',monkey_name,date));
+        load(sprintf('%s/%s_%s_corrected_movements.mat',monkey_dir,monkey_name,date));
+        load(sprintf('/Users/xiaobocheng/Desktop/monkey_data/Arm_Movements/%s-%sarm_movements.mat',monkey_name,date));
         
         %%%%%%% INSERT ANALYSIS CODE HERE %%%%%
         ampl = MoveAmp;
@@ -40,7 +41,7 @@ for monkey_num = 1:numel(monkey_names)
         dec = Decision_Index;
         pred = PreDecision_Index;
         post = PostDecision_Index;
-                [dec_size,dec_cl] = size(boxplot(ampl(logical(dec))));
+        [dec_size,dec_cl] = size(boxplot(ampl(logical(dec))));
         [pred_size,pred_cl] = size(boxplot(ampl(logical(pred))));
         [post_size,post_cl] = size(boxplot(ampl(logical(post))));
         boxplot(ampl(logical(pred)),'positions',1);
@@ -53,7 +54,7 @@ for monkey_num = 1:numel(monkey_names)
         xlim([0 4]); ylim([min([plot1_ylim(1) plot2_ylim(1) plot3_ylim(1)]) max([plot1_ylim(2) plot2_ylim(2) plot3_ylim(2)])]);
         set(gca,'xtick',[1 2 3],'xticklabels',{'pre' 'dec' 'post'});
         ylabel('movement amplitude');
-        print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Box_One/' monkey_name date '-scatter.png']);
+        print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/Los_Plots/Box_One/' monkey_name date '-scatter.png']);
         subplot(1,3,1);
         
         polarscatter(deg2rad(dire(logical(pred))),ampl(logical(pred)));
@@ -68,7 +69,7 @@ for monkey_num = 1:numel(monkey_names)
         polarscatter(deg2rad(dire(logical(post))),ampl(logical(post)));
                 title('Post-Decision');
         
-        print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Circular_One/' monkey_name date '-scatter.png']);
+        print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/Los_Plots/Circular_One/' monkey_name date '-scatter.png']);
         clf;
     end
 end
