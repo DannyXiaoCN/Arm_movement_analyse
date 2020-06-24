@@ -8,9 +8,9 @@ I_bins = uniI.NumBins;
 for monkey_num = 1:numel(monkey_names)
     monkey_name = monkey_names{monkey_num};
     if strcmpi(monkey_name,'Hobbit')
-        monkey_dir = '/home/bochengxiao/Monkey_Data/SMA_Monkey/MonkeyH';
+        monkey_dir = '/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/MonkeyH';
     elseif strcmpi(monkey_name,'Isildur')
-        monkey_dir = '/home/bochengxiao/Monkey_Data/SMA_Monkey/MonkeyI';
+        monkey_dir = '/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/MonkeyI';
     else
         disp('No data for this monkey');
     end
@@ -35,7 +35,8 @@ for monkey_num = 1:numel(monkey_names)
         date = dates{date_num};
         
         load(sprintf('%s/Multi-attribute-%s-%s.mat',monkey_dir,monkey_name,date));
-        load(sprintf('/home/bochengxiao/Monkey_Data/Arm_Movements/%s-%sarm_movements.mat',monkey_name,date));
+        load(sprintf('%s/%s_%s_corrected_movements.mat',monkey_dir,monkey_name,date));
+        load(sprintf('/Users/xiaobocheng/Desktop/monkey_data/Arm_Movements/%s-%sarm_movements.mat',monkey_name,date));
         
         %%%%%%% INSERT ANALYSIS CODE HERE %%%%%
         ampl = MoveAmp;
@@ -59,22 +60,22 @@ for monkey_num = 1:numel(monkey_names)
             
         end
         
-        print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Histogram/merge/' monkey_name date '-histogram.png']);
+        print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Histogram/merge/' monkey_name date '-histogram.png']);
         hold off;
         clf;
         if cc == 0
           pred_his = histogram(ampl(logical(pred)).',uniH.NumBins);
-          print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-predecision-histogram.png']);
+          print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-predecision-histogram.png']);
           xlabel('predecision movement amplitude');
           ylabel('# of movement');
           dec_his = histogram(ampl(logical(dec)).',uniH.NumBins);
           xlabel('decision movement amplitude');
           ylabel('# of movement');
-          print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-decision-histogram.png']);
+          print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-decision-histogram.png']);
           post_his = histogram(ampl(logical(post)).',uniH.NumBins);
           xlabel('postdecison movement amplitude');
           ylabel('# of movement');
-          print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-postdecision-histogram.png']);
+          print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-postdecision-histogram.png']);
           [pre_n,pre_e] = histcounts(ampl(logical(pred)).',H_bins);
           [dec_n,dec_e] = histcounts(ampl(logical(dec)).',H_bins);
           [post_n,post_e] = histcounts(ampl(logical(post)).',H_bins);
@@ -87,20 +88,20 @@ for monkey_num = 1:numel(monkey_names)
           ylabel('movement amplitude');
           cbar = colorbar;
           ylabel(cbar,'number of movements');
-          print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/imagesc/' monkey_name date '-imagesc.png']);
+          print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/imagesc/' monkey_name date '-imagesc.png']);
         else
           pred_his = histogram(ampl(logical(pred)).',I_bins);
                     xlabel('predecision movement amplitude');
           ylabel('# of movement');
-          print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-predecision-histogram.png']);
+          print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-predecision-histogram.png']);
           dec_his = histogram(ampl(logical(dec)).',I_bins);
           xlabel('decision movement amplitude');
           ylabel('# of movement');
-          print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-decision-histogram.png']);
+          print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-decision-histogram.png']);
           post_his = histogram(ampl(logical(post)).',I_bins);
           xlabel('postdecison movement amplitude');
           ylabel('# of movement');
-          print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-postdecision-histogram.png']);
+          print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Histogram/' monkey_name date '-postdecision-histogram.png']);
           [pre_n,pre_e] = histcounts(ampl(logical(pred)).',I_bins);
           [dec_n,dec_e] = histcounts(ampl(logical(dec)).',I_bins);
           [post_n,post_e] = histcounts(ampl(logical(post)).',I_bins);
@@ -113,7 +114,7 @@ for monkey_num = 1:numel(monkey_names)
           ylabel('movement amplitude');
           cbar = colorbar;
           ylabel(cbar,'number of movements');
-          print(gcf,'-dpng',['/home/bochengxiao/Monkey_Data/Los_Plots/imagesc/' monkey_name date '-imagesc.png']);
+          print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/imagesc/' monkey_name date '-imagesc.png']);
         end
     end
     cc = cc + 1;

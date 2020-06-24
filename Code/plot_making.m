@@ -54,7 +54,7 @@ for monkey_num = 1:numel(monkey_names)
         xlim([0 4]); ylim([min([plot1_ylim(1) plot2_ylim(1) plot3_ylim(1)]) max([plot1_ylim(2) plot2_ylim(2) plot3_ylim(2)])]);
         set(gca,'xtick',[1 2 3],'xticklabels',{'pre' 'dec' 'post'});
         ylabel('movement amplitude');
-        print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/Los_Plots/Box_One/' monkey_name date '-scatter.png']);
+        print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Box/' monkey_name date '-scatter.png']);
         subplot(1,3,1);
         
         polarscatter(deg2rad(dire(logical(pred))),ampl(logical(pred)));
@@ -69,7 +69,7 @@ for monkey_num = 1:numel(monkey_names)
         polarscatter(deg2rad(dire(logical(post))),ampl(logical(post)));
                 title('Post-Decision');
         
-        print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/Los_Plots/Circular_One/' monkey_name date '-scatter.png']);
+        print(gcf,'-dpng',['/Users/xiaobocheng/Desktop/Monkey_Data/Los_Plots/Circular/' monkey_name date '-scatter.png']);
         clf;
     end
 end
