@@ -81,7 +81,8 @@ for monkey_num = 1:numel(monkey_names)
         load(sprintf('%s/Multi-attribute-%s-%s.mat',monkey_dir,monkey_name,date));
         
         %%%%%%% INSERT ANALYSIS CODE HERE %%%%%
-        load(['/Users/xiaobocheng/Desktop/monkey_data/Arm_Movements/' monkey_name '-' date 'arm_movements.mat'],'Decision','PreDecision','PostDecision','Decision_Index','PreDecision_Index','PostDecision_Index');
+        load(sprintf('%s/%s_%s_corrected_movements.mat',monkey_dir,monkey_name,date));
+        load(sprintf('/Users/xiaobocheng/Desktop/monkey_data/Arm_Movements/%s-%sarm_movements.mat',monkey_name,date));
        
         [siz,~] = size(MoveAmp);
         for trial_num = 1:siz
@@ -97,12 +98,13 @@ for monkey_num = 1:numel(monkey_names)
 end
 
 figure;
+subplot(3,1,1)
 histogram(c,linspace(min([amp_mat_m aft_mat_m bef_mat_m]),max([amp_mat_m aft_mat_m bef_mat_m]),10));
-hold on
-tem = histogram(aft_mat_m,linspace(min([amp_mat_m aft_mat_m bef_mat_m]),max([amp_mat_m aft_mat_m bef_mat_m]),10));
-tem.FaceColor = [0 0 0];
-temm = histogram(bef_mat_m,linspace(min([amp_mat_m aft_mat_m bef_mat_m]),max([amp_mat_m aft_mat_m bef_mat_m]),10));
-temm.FaceColor = [1 1 1];
+subplot(3,1,2)
+histogram(aft_mat_m,linspace(min([amp_mat_m aft_mat_m bef_mat_m]),max([amp_mat_m aft_mat_m bef_mat_m]),10));
+subplot(3,1,3)
+histogram(bef_mat_m,linspace(min([amp_mat_m aft_mat_m bef_mat_m]),max([amp_mat_m aft_mat_m bef_mat_m]),10));
+
 xlabel('predecision movement amplitude');
 ylabel('# of movement');
 title('Monkey Hobbit Pre-Decision Amplitude Distribution');
@@ -110,12 +112,12 @@ print(gcf,'-dpng','/Users/xiaobocheng/Desktop/monkey_data/Los_plots/pre_histo/Mo
 
 
 figure;
+subplot(3,1,1)
 histogram(amp_mat_i,linspace(min([amp_mat_i aft_mat_i bef_mat_i]),max([amp_mat_i aft_mat_i bef_mat_i]),10));
-hold on
-tem = histogram(aft_mat_i,linspace(min([amp_mat_i aft_mat_i bef_mat_i]),max([amp_mat_i aft_mat_i bef_mat_i]),10));
-tem.FaceColor = [0 0 0];
-temm = histogram(bef_mat_i,linspace(min([amp_mat_i aft_mat_i bef_mat_i]),max([amp_mat_i aft_mat_i bef_mat_i]),10));
-temm.FaceColor = [1 1 1];
+subplot(3,1,2)
+histogram(aft_mat_i,linspace(min([amp_mat_i aft_mat_i bef_mat_i]),max([amp_mat_i aft_mat_i bef_mat_i]),10));
+subplot(3,1,3)
+histogram(bef_mat_i,linspace(min([amp_mat_i aft_mat_i bef_mat_i]),max([amp_mat_i aft_mat_i bef_mat_i]),10));
 xlabel('predecision movement amplitude');
 ylabel('# of movement');
 title('Monkey Isildur Pre-Decision Amplitude Distribution');
