@@ -99,7 +99,7 @@ end
 
 figure;
 subplot(3,1,1)
-histogram(c,linspace(min([amp_mat_m aft_mat_m bef_mat_m]),max([amp_mat_m aft_mat_m bef_mat_m]),10));
+histogram(amp_mat_m,linspace(min([amp_mat_m aft_mat_m bef_mat_m]),max([amp_mat_m aft_mat_m bef_mat_m]),10));
 subplot(3,1,2)
 histogram(aft_mat_m,linspace(min([amp_mat_m aft_mat_m bef_mat_m]),max([amp_mat_m aft_mat_m bef_mat_m]),10));
 subplot(3,1,3)

@@ -62,46 +62,45 @@ for monkey_num = 1:numel(monkey_names)
         % new added to accumulate all amplitude
         
         if ii == 0
-            all_ampl_h_pre = [all_ampl_h_pre, (ampl(logical(pred)))'];
-            all_ampl_h_dec = [all_ampl_h_dec, (ampl(logical(dec)))'];
-            all_ampl_h_post = [all_ampl_h_post, (ampl(logical(post)))'];
+            all_ampl_h_pre = [all_ampl_h_pre;ampl(logical(pred))];
+            all_ampl_h_dec = [all_ampl_h_dec;ampl(logical(dec))];
+            all_ampl_h_post = [all_ampl_h_post;ampl(logical(post))];
             
-            all_dir_h_pre = [all_dir_h_pre, (deg2rad(dire(logical(pred))))'];
-            all_dir_h_dec = [all_dir_h_dec, (deg2rad(dire(logical(dec))))'];
-            all_dir_h_post = [all_dir_h_post, (deg2rad(dire(logical(post))))'];
+            all_dir_h_pre = [all_dir_h_pre deg2rad(dire(logical(pred)))];
+            all_dir_h_dec = [all_dir_h_dec deg2rad(dire(logical(dec)))];
+            all_dir_h_post = [all_dir_h_post deg2rad(dire(logical(post)))];
         end
         
         if ii == 1
-            all_ampl_i_pre = [all_ampl_i_pre,(ampl(logical(pred)))'];
-            all_ampl_i_dec = [all_ampl_i_dec,(ampl(logical(dec)))'];
-            all_ampl_i_post = [all_ampl_i_post,(ampl(logical(post)))'];
+            all_ampl_i_pre = [all_ampl_i_pre ampl(logical(pred))];
+            all_ampl_i_dec = [all_ampl_i_dec ampl(logical(dec))];
+            all_ampl_i_post = [all_ampl_i_post ampl(logical(post))];
             
-            all_dir_i_pre = [all_dir_i_pre,(deg2rad(dire(logical(pred))))'];
-            all_dir_i_dec = [all_dir_i_dec,(deg2rad(dire(logical(dec))))'];
-            all_dir_i_post = [all_dir_i_post,(deg2rad(dire(logical(post))))'];
+            all_dir_i_pre = [all_dir_i_pre deg2rad(dire(logical(pred)))];
+            all_dir_i_dec = [all_dir_i_dec deg2rad(dire(logical(dec)))];
+            all_dir_i_post = [all_dir_i_post deg2rad(dire(logical(post)))];
         end
     end
     ii = ii + 1;
 end
-
-boxplot(all_ampl_h_pre','positions',1);
+boxplot(all_ampl_h_pre,'positions',1);
 plot1_ylim = get(gca,'Ylim');
 hold on;
-boxplot(all_ampl_h_dec','positions',2);
+boxplot(all_ampl_h_dec,'positions',2);
 plot2_ylim = get(gca,'Ylim');
-boxplot(all_ampl_h_post','positions',3);
+boxplot(all_ampl_h_post,'positions',3);
 plot3_ylim = get(gca,'Ylim');
 xlim([0 4]); ylim([min([plot1_ylim(1) plot2_ylim(1) plot3_ylim(1)]) max([plot1_ylim(2) plot2_ylim(2) plot3_ylim(2)])]);
 set(gca,'xtick',[1 2 3],'xticklabels',{'pre' 'dec' 'post'});
 ylabel('Hobbit movement amplitude');
 print(gcf,'-dpng','/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/Hobbit-box.png');
 
-boxplot(all_ampl_i_pre','positions',1);
+boxplot(all_ampl_i_pre,'positions',1);
 plot1_ylim = get(gca,'Ylim');
 hold on;
-boxplot(all_ampl_i_dec','positions',2);
+boxplot(all_ampl_i_dec,'positions',2);
 plot2_ylim = get(gca,'Ylim');
-boxplot(all_ampl_i_post','positions',3);
+boxplot(all_ampl_i_post,'positions',3);
 plot3_ylim = get(gca,'Ylim');
 xlim([0 4]); ylim([min([plot1_ylim(1) plot2_ylim(1) plot3_ylim(1)]) max([plot1_ylim(2) plot2_ylim(2) plot3_ylim(2)])]);
 set(gca,'xtick',[1 2 3],'xticklabels',{'pre' 'dec' 'post'});
@@ -110,25 +109,25 @@ print(gcf,'-dpng','/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/Isildur-box
 clf;
 
 subplot(1,3,1);
-polarscatter(all_dir_h_pre' ,all_ampl_h_pre');
+polarscatter(all_dir_h_pre ,all_ampl_h_pre);
 title('Hobbit Pre-Decision');
 subplot(1,3,2);
-polarscatter(all_dir_h_dec' ,all_ampl_h_dec');
+polarscatter(all_dir_h_dec ,all_ampl_h_dec);
 title('Hobbit Decision');
 subplot(1,3,3);
-polarscatter(all_dir_h_post' ,all_ampl_h_post');
+polarscatter(all_dir_h_post ,all_ampl_h_post);
 title('Hobbit Post-Decision');
 print(gcf,'-dpng','/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/Hobbit-scatter.png');
 clf;
 
 subplot(1,3,1);
-polarscatter(all_dir_i_pre' ,all_ampl_i_pre');
+polarscatter(all_dir_i_pre ,all_ampl_i_pre);
 title('Isildur Pre-Decision');
 subplot(1,3,2);
-polarscatter(all_dir_i_dec' ,all_ampl_i_dec');
+polarscatter(all_dir_i_dec ,all_ampl_i_dec);
 title('Isildur Decision');
 subplot(1,3,3);
-polarscatter(all_dir_i_post' ,all_ampl_i_post');
+polarscatter(all_dir_i_post ,all_ampl_i_post);
 title('Isildur Post-Decision');
 print(gcf,'-dpng','/Users/xiaobocheng/Desktop/Monkey_Data/SMA_Monkey/Isildur-scatter.png');
 clf;

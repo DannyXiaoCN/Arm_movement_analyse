@@ -28,7 +28,7 @@ if  mm == 0
             for cnt_f = 1:cols
                 cur_start = FixOnFirst.CodeTime(trial_num,target_fix(1,cnt_f));
                 cur_end = cur_start + 350;
-                cur_att = FixbySacDet.whichAttribute(trial_num,target_fix(1,cnt_f));
+                cur_att = FixOnFirst.WhichFix(trial_num,target_fix(1,cnt_f));
                 %                 if abs(cur_mov_dir(1,target(1,cnt))- 90) < 10 || abs(cur_mov_dir(1,target(1,cnt))- 210) < 10 || abs(cur_mov_dir(1,target(1,cnt))- 330) < 10
                 %                     if BHV.AnalogData{trial_num}.Joystick(1,1) < 1 && BHV.AnalogData{trial_num}.Joystick(1,2) < 1
                
@@ -94,7 +94,7 @@ else
         diff_1_2_i = diff_1_2_i + ins;
         target = find(cur_pre_dec~=0);
         [a,b] = size(target);
-        target_fix = find(~isnan(FixbySacDet.whichAttribute(trial_num,:)));
+        target_fix = find(~isnan(FixOnFirst.WhichFix(trial_num,:)));
         [~,cols] = size(target_fix);
         min_time = 9999;
         for cnt_f = 1:cols
@@ -108,14 +108,14 @@ else
             for cnt = 1:b
                 cur_start = FixOnFirst.CodeTime(trial_num,target_fix(1,cnt_f));
                 cur_end = cur_start + 350;
-                cur_att = FixbySacDet.whichAttribute(trial_num,target_fix(1,cnt_f));
+                cur_att = FixOnFirst.WhichFix(trial_num,target_fix(1,cnt_f));
                 %                 if abs(cur_mov_dir(1,target(1,cnt))- 90) < 10 || abs(cur_mov_dir(1,target(1,cnt))- 210) < 10 || abs(cur_mov_dir(1,target(1,cnt))- 330) < 10
                 %                     if BHV.AnalogData{trial_num}.Joystick(1,1) < 1 && BHV.AnalogData{trial_num}.Joystick(1,2) < 1
                 amp_mat_i = [amp_mat_i cur_mov_amp(1,target(1,cnt))];
                 
                 if cur_mov_amp(1,target(1,cnt)) > 1.25
                     svd_vec = [monkey_name date num2str(trial_num) num2str(target(1,cnt))];
-                    save(['/home/bochengxiao/Monkey_Data/interesting_predec/' monkey_name '-' date '-' num2str(trial_num) ],'svd_vec');
+                    save(['/Users/xiaobocheng/Desktop/Monkey_Data/interesting_predec/' monkey_name '-' date '-' num2str(trial_num) ],'svd_vec');
                 end
                 if cur_pre_dec(1,target(1,cnt)) > cur_start && cur_pre_dec(1,target(1,cnt)) < cur_end
                     in_fixation_i = in_fixation_i + 1;
